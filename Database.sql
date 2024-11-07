@@ -1,138 +1,148 @@
-DROP DATABASE movieticketbooking;
+-- Xóa cơ sở dữ liệu cũ nếu tồn tại
+DROP DATABASE IF EXISTS movieticketbooking;
+
+-- Tạo cơ sở dữ liệu mới
 CREATE DATABASE movieticketbooking;
 USE movieticketbooking;
 
+-- Tạo bảng người dùng
 CREATE TABLE users (
-    user_id INT AUTO_INCREMENT PRIMARY KEY,
-    username VARCHAR(50) UNIQUE NOT NULL,
-    password VARCHAR(255) NOT NULL,
-    email VARCHAR(100) UNIQUE NOT NULL,
-    phone_number VARCHAR(15) UNIQUE,
-    avatar VARCHAR(255),
-    role ENUM('admin', 'customer', 'staff') NOT NULL
+    user_id INT AUTO_INCREMENT PRIMARY KEY,   -- ID người dùng, tự động tăng
+    username VARCHAR(50) UNIQUE NOT NULL,     -- Tên người dùng, duy nhất và không được để trống
+    password VARCHAR(255) NOT NULL,           -- Mật khẩu, không được để trống
+    email VARCHAR(100) UNIQUE NOT NULL,       -- Email, duy nhất và không được để trống
+    phone_number VARCHAR(15) UNIQUE,          -- Số điện thoại, duy nhất
+    avatar VARCHAR(255),                      -- URL ảnh đại diện
+    role ENUM('admin', 'customer', 'staff') NOT NULL  -- Vai trò người dùng
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- Tạo bảng phim
 CREATE TABLE movies (
-    movie_id VARCHAR(45) PRIMARY KEY,
-    title VARCHAR(255) NOT NULL,
-    description TEXT NOT NULL,
-    genres VARCHAR(255) NOT NULL,
-    director VARCHAR(255),
-    actor VARCHAR(255),
-    producer VARCHAR(255),
-    language VARCHAR(100) NOT NULL,
-    duration INT NOT NULL,
-    release_date DATE NOT NULL,
-    rating VARCHAR(10) NOT NULL,
-    image TEXT,
-    trailer_url VARCHAR(255),
-    movie_price DECIMAL(10, 2) NOT NULL
+    movie_id VARCHAR(45) PRIMARY KEY,         -- ID phim
+    title VARCHAR(255) NOT NULL,              -- Tiêu đề phim
+    description TEXT NOT NULL,                -- Mô tả phim
+    genres VARCHAR(255) NOT NULL,             -- Thể loại phim
+    director VARCHAR(255),                    -- Đạo diễn
+    actor VARCHAR(255),                       -- Diễn viên
+    producer VARCHAR(255),                    -- Nhà sản xuất
+    language VARCHAR(100) NOT NULL,           -- Ngôn ngữ
+    duration INT NOT NULL,                    -- Thời lượng phim (phút)
+    release_date DATE NOT NULL,               -- Ngày phát hành
+    rating VARCHAR(10) NOT NULL,              -- Đánh giá
+    image TEXT,                               -- URL ảnh phim
+    trailer_url VARCHAR(255),                 -- URL trailer
+    movie_price DECIMAL(10, 2) NOT NULL       -- Giá vé xem phim
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- Tạo bảng rạp chiếu phim
 CREATE TABLE theaters (
-    theater_id INT AUTO_INCREMENT PRIMARY KEY,
-    theater_name VARCHAR(255) NOT NULL,
-    location VARCHAR(255) NOT NULL,
-    total_auditoriums INT NOT NULL,
-    contact_info VARCHAR(255),
-    amenities VARCHAR(255)
+    theater_id INT AUTO_INCREMENT PRIMARY KEY,  -- ID rạp chiếu phim, tự động tăng
+    theater_name VARCHAR(255) NOT NULL,         -- Tên rạp chiếu phim
+    location VARCHAR(255) NOT NULL,             -- Địa chỉ
+    total_auditoriums INT NOT NULL,             -- Tổng số phòng chiếu
+    contact_info VARCHAR(255),                  -- Thông tin liên lạc
+    amenities VARCHAR(255)                      -- Tiện nghi
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- Tạo bảng phòng chiếu
 CREATE TABLE auditoriums (
-    auditorium_id INT AUTO_INCREMENT PRIMARY KEY,
-    theater_id INT NOT NULL,
-    auditorium_name VARCHAR(255) NOT NULL,
-    auditorium_seats INT,
-    FOREIGN KEY (theater_id) REFERENCES theaters(theater_id) ON DELETE CASCADE
+    auditorium_id INT AUTO_INCREMENT PRIMARY KEY,  -- ID phòng chiếu, tự động tăng
+    theater_id INT NOT NULL,                       -- ID rạp chiếu phim (foreign key)
+    auditorium_name VARCHAR(255) NOT NULL,         -- Tên phòng chiếu
+    auditorium_seats INT,                          -- Số ghế trong phòng chiếu
+    FOREIGN KEY (theater_id) REFERENCES theaters(theater_id) ON DELETE CASCADE  -- Khóa ngoại, xóa liên kết nếu xóa rạp chiếu phim
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- Tạo bảng lịch chiếu phim
 CREATE TABLE showtimes (
-    showtime_id INT AUTO_INCREMENT PRIMARY KEY,
-    movie_id VARCHAR(45) NOT NULL,
-    theater_id INT NOT NULL,
-    auditorium_id INT NOT NULL,
-    show_date DATE NOT NULL,
-    show_time TIME NOT NULL,
-    time_price DECIMAL(10, 2) NOT NULL,
+    showtime_id INT AUTO_INCREMENT PRIMARY KEY,    -- ID lịch chiếu phim, tự động tăng
+    movie_id VARCHAR(45) NOT NULL,                 -- ID phim (foreign key)
+    theater_id INT NOT NULL,                       -- ID rạp chiếu phim (foreign key)
+    auditorium_id INT NOT NULL,                    -- ID phòng chiếu (foreign key)
+    show_date DATE NOT NULL,                       -- Ngày chiếu phim
+    show_time TIME NOT NULL,                       -- Giờ chiếu phim
+    time_price DECIMAL(10, 2) NOT NULL,            -- Giá vé theo lịch chiếu
     FOREIGN KEY (movie_id) REFERENCES movies(movie_id) ON DELETE CASCADE,
     FOREIGN KEY (theater_id) REFERENCES theaters(theater_id) ON DELETE CASCADE,
     FOREIGN KEY (auditorium_id) REFERENCES auditoriums(auditorium_id) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- Tạo bảng ghế ngồi
 CREATE TABLE seats (
-    seat_id INT PRIMARY KEY AUTO_INCREMENT,
-    theater_id INT NOT NULL,
-    auditorium_id INT NOT NULL,
-    seat_number VARCHAR(10) NOT NULL,
-    seat_type ENUM('regular', 'vip') NOT NULL,
-    seat_price DECIMAL(10,2) NOT NULL,
+    seat_id INT PRIMARY KEY AUTO_INCREMENT,       -- ID ghế ngồi, tự động tăng
+    theater_id INT NOT NULL,                      -- ID rạp chiếu phim (foreign key)
+    auditorium_id INT NOT NULL,                   -- ID phòng chiếu (foreign key)
+    seat_number VARCHAR(10) NOT NULL,             -- Số ghế
+    seat_type ENUM('regular', 'vip') NOT NULL,    -- Loại ghế (thường, vip)
+    seat_price DECIMAL(10,2) NOT NULL,            -- Giá ghế
     FOREIGN KEY (theater_id) REFERENCES theaters(theater_id) ON DELETE CASCADE,
     FOREIGN KEY (auditorium_id) REFERENCES auditoriums(auditorium_id) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- Tạo bảng đặt vé
 CREATE TABLE bookings (
-    booking_id INT AUTO_INCREMENT PRIMARY KEY,
-    user_id INT NOT NULL,
-    showtime_id INT NOT NULL,
-    booking_date DATE NOT NULL,
-    booking_status ENUM('confirmed', 'canceled') NOT NULL,
-    seats_booked INT NOT NULL,
-    original_seats_booked INT DEFAULT 0,
+    booking_id INT AUTO_INCREMENT PRIMARY KEY,    -- ID đặt vé, tự động tăng
+    user_id INT NOT NULL,                         -- ID người dùng (foreign key)
+    showtime_id INT NOT NULL,                     -- ID lịch chiếu phim (foreign key)
+    booking_date DATE NOT NULL,                   -- Ngày đặt vé
+    booking_status ENUM('confirmed', 'canceled') NOT NULL,  -- Trạng thái đặt vé
+    seats_booked INT NOT NULL,                    -- Số ghế đã đặt
+    original_seats_booked INT DEFAULT 0,          -- Số ghế ban đầu đã đặt
     FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE,
     FOREIGN KEY (showtime_id) REFERENCES showtimes(showtime_id) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- Tạo bảng vé
 CREATE TABLE tickets (
-    ticket_id INT AUTO_INCREMENT PRIMARY KEY,
-    showtime_id INT NOT NULL,
-    seat_id INT NOT NULL,
-    booking_id INT NOT NULL,
-    ticket_status ENUM('confirmed', 'canceled') NOT NULL,
-    ticket_price DECIMAL(10, 2) NOT NULL,
+    ticket_id INT AUTO_INCREMENT PRIMARY KEY,     -- ID vé, tự động tăng
+    showtime_id INT NOT NULL,                     -- ID lịch chiếu phim (foreign key)
+    seat_id INT NOT NULL,                         -- ID ghế ngồi (foreign key)
+    booking_id INT NOT NULL,                      -- ID đặt vé (foreign key)
+    ticket_status ENUM('confirmed', 'canceled') NOT NULL,  -- Trạng thái vé
+    ticket_price DECIMAL(10, 2) NOT NULL,         -- Giá vé
     FOREIGN KEY (showtime_id) REFERENCES showtimes(showtime_id) ON DELETE CASCADE,
     FOREIGN KEY (seat_id) REFERENCES seats(seat_id) ON DELETE CASCADE,
     FOREIGN KEY (booking_id) REFERENCES bookings(booking_id) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- Tạo bảng ngân hàng hỗ trợ
 CREATE TABLE supportedbanks (
-    supportedBank_id INT AUTO_INCREMENT PRIMARY KEY,
-    bank_name VARCHAR(255) NOT NULL UNIQUE
+    supportedBank_id INT AUTO_INCREMENT PRIMARY KEY, -- ID ngân hàng hỗ trợ, tự động tăng
+    bank_name VARCHAR(255) NOT NULL UNIQUE           -- Tên ngân hàng, duy nhất
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE payments (
-    payment_id INT AUTO_INCREMENT PRIMARY KEY,
-    booking_id INT NOT NULL,
-    payment_date DATE NOT NULL,
-    total_amount DECIMAL(10, 2) NOT NULL,
-    payment_status ENUM('pending', 'completed') NOT NULL,
-    bank_id INT NOT NULL,
-    refund_amount DECIMAL(10, 2),
-    refund_date DATE,
-    refund_status ENUM('pending', 'completed', 'not_applicable') DEFAULT 'not_applicable',
-    FOREIGN KEY (booking_id) REFERENCES bookings(booking_id) ON DELETE CASCADE,
-    FOREIGN KEY (bank_id) REFERENCES SupportedBanks(supportedBank_id) ON DELETE CASCADE
+    payment_id INT AUTO_INCREMENT PRIMARY KEY,  -- ID thanh toán, tự động tăng
+    booking_id INT NOT NULL,                    -- ID đặt vé (foreign key)
+    payment_date DATE NOT NULL,                 -- Ngày thanh toán
+    total_amount DECIMAL(10, 2) NOT NULL,       -- Tổng số tiền thanh toán
+    payment_status ENUM('pending', 'completed') NOT NULL,  -- Trạng thái thanh toán
+    bank_id INT NOT NULL,                       -- ID ngân hàng (foreign key)
+    refund_amount DECIMAL(10, 2),               -- Số tiền hoàn lại (nếu có)
+    refund_date DATE,                           -- Ngày hoàn tiền (nếu có)
+    refund_status ENUM('pending', 'completed', 'not_applicable') DEFAULT 'not_applicable',  -- Trạng thái hoàn tiền
+    FOREIGN KEY (booking_id) REFERENCES bookings(booking_id) ON DELETE CASCADE,  -- Khóa ngoại đến bảng bookings
+    FOREIGN KEY (bank_id) REFERENCES SupportedBanks(supportedBank_id) ON DELETE CASCADE  -- Khóa ngoại đến bảng SupportedBanks
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-
-
 CREATE TABLE customer_feedback (
-    feedback_id INT AUTO_INCREMENT PRIMARY KEY,
-    user_id INT NOT NULL,
-    feedback_text TEXT NOT NULL,
-    feedback_type ENUM('complaint', 'suggestion', 'inquiry', 'other') DEFAULT 'other',
-    status ENUM('pending', 'reviewed', 'resolved') DEFAULT 'pending',
-    staff_response TEXT,
-    FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
+    feedback_id INT AUTO_INCREMENT PRIMARY KEY,  -- ID phản hồi khách hàng, tự động tăng
+    user_id INT NOT NULL,                        -- ID người dùng (foreign key)
+    feedback_text TEXT NOT NULL,                 -- Nội dung phản hồi
+    feedback_type ENUM('complaint', 'suggestion', 'inquiry', 'other') DEFAULT 'other',  -- Loại phản hồi
+    status ENUM('pending', 'reviewed', 'resolved') DEFAULT 'pending',  -- Trạng thái phản hồi
+    staff_response TEXT,                         -- Phản hồi của nhân viên
+    FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE  -- Khóa ngoại đến bảng users
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE reviews (
-    review_id INT AUTO_INCREMENT PRIMARY KEY,
-    movie_id VARCHAR(45) NOT NULL,
-    user_id INT NOT NULL,
-    star_rating INT CHECK (star_rating >= 1 AND star_rating <= 5),
-    review_text TEXT NOT NULL,
-    FOREIGN KEY (movie_id) REFERENCES movies(movie_id) ON DELETE CASCADE,
-    FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
+    review_id INT AUTO_INCREMENT PRIMARY KEY,    -- ID đánh giá phim, tự động tăng
+    movie_id VARCHAR(45) NOT NULL,               -- ID phim (foreign key)
+    user_id INT NOT NULL,                        -- ID người dùng (foreign key)
+    star_rating INT CHECK (star_rating >= 1 AND star_rating <= 5),  -- Xếp hạng sao (từ 1 đến 5)
+    review_text TEXT NOT NULL,                   -- Nội dung đánh giá
+    FOREIGN KEY (movie_id) REFERENCES movies(movie_id) ON DELETE CASCADE,  -- Khóa ngoại đến bảng movies
+    FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE  -- Khóa ngoại đến bảng users
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 INSERT INTO users (username, password, email, phone_number, avatar, role)

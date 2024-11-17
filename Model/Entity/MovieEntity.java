@@ -1,162 +1,165 @@
-package com.example.movieticketbooking.Model.Entity;
+package com.example.demo.Model.Entity;
 
-import java.util.*;
+import java.math.BigDecimal;
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 import jakarta.persistence.*;
 
 /**
  * Lớp Entity đại diện cho bảng movies.
-*/
+ */
 @Entity
 @Table(name = "movies")
 public class MovieEntity {
 
     /**
      * Khóa chính của bảng.
-    */
+     */
     @Id
-    @Column(name = "movie_id", nullable = false, length = 45, unique = true)
-    private String movie_id;
+    @Column(name = "movie_id", nullable = false, length = 45)
+    private String movieId;
 
     /**
      * Tiêu đề của phim.
-    */
-    @Column(name = "title", nullable = false, length = 255, unique = true)
+     */
+    @Column(name = "title", nullable = false, length = 255)
     private String title;
 
     /**
      * Mô tả của phim.
-    */
-    @Column(name = "description", nullable = false)
+     */
+    @Column(name = "description", nullable = false, columnDefinition = "TEXT")
     private String description;
 
     /**
      * Thể loại của phim.
-    */
-    @Column(name = "genres", nullable = false)
+     */
+    @Column(name = "genres", nullable = false, length = 255)
     private String genres;
 
     /**
      * Đạo diễn của phim.
-    */
-    @Column(name = "director")
+     */
+    @Column(name = "director", length = 255)
     private String director;
 
     /**
      * Diễn viên của phim.
-    */
-    @Column(name = "actor")
+     */
+    @Column(name = "actor", length = 255)
     private String actor;
 
     /**
      * Nhà sản xuất của phim.
-    */
-    @Column(name = "producter")
-    private String producter;
+     */
+    @Column(name = "producer", length = 255)
+    private String producer;
 
     /**
      * Ngôn ngữ của phim.
-    */
-    @Column(name = "language")
+     */
+    @Column(name = "language", nullable = false, length = 100)
     private String language;
 
     /**
      * Thời lượng của phim.
-    */
+     */
     @Column(name = "duration", nullable = false)
-    private String duration;
+    private int duration;
 
     /**
      * Ngày phát hành của phim.
-    */
+     */
     @Column(name = "release_date", nullable = false)
-    private String release_date;
+    private Date releaseDate;
 
     /**
      * Đánh giá của phim.
-    */
-    @Column(name = "rating", nullable = false)
+     */
+    @Column(name = "rating", nullable = false, length = 10)
     private String rating;
 
     /**
      * Hình ảnh của phim.
-    */
-    @Column(name = "image")
+     */
+    @Column(name = "image", columnDefinition = "TEXT")
     private String image;
 
     /**
      * URL trailer của phim.
-    */
-    @Column(name = "trailer_url")
-    private String trailer_url;
+     */
+    @Column(name = "trailer_url", length = 255)
+    private String trailerUrl;
 
     /**
      * Giá phim.
-    */
+     */
     @Column(name = "movie_price", nullable = false, precision = 10, scale = 2)
-    private double movie_price;
+    private BigDecimal moviePrice;
 
     /**
      * Liên kết với bảng showtimes thông qua thuộc tính movie.
-    */
+     */
     @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<ShowtimeEntity> showtimes = new ArrayList<>();
 
     /**
      * Liên kết với bảng reviews thông qua thuộc tính movie.
-    */
+     */
     @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<ReviewEntity> reviews = new ArrayList<>();
 
     /**
      * Constructor mặc định.
-    */
+     */
     public MovieEntity() {}
 
     /**
      * Constructor có tham số.
      *
-     * @param movie_id Mã định danh của phim.
+     * @param movieId Mã định danh của phim.
      * @param title Tiêu đề của phim.
      * @param description Mô tả của phim.
      * @param genres Thể loại của phim.
      * @param director Đạo diễn của phim.
      * @param actor Diễn viên của phim.
-     * @param producter Nhà sản xuất của phim.
+     * @param producer Nhà sản xuất của phim.
      * @param language Ngôn ngữ của phim.
      * @param duration Thời lượng của phim.
-     * @param release_date Ngày phát hành của phim.
+     * @param releaseDate Ngày phát hành của phim.
      * @param rating Đánh giá của phim.
      * @param image Hình ảnh của phim.
-     * @param trailer_url URL trailer của phim.
-     * @param movie_price Giá phim.
-    */
-    public MovieEntity(String movie_id, String title, String description, String genres, String director, String actor,
-                       String producter, String language, String duration, String release_date, String rating,
-                       String image, String trailer_url, double movie_price) {
-        this.movie_id = movie_id;
+     * @param trailerUrl URL trailer của phim.
+     * @param moviePrice Giá phim.
+     */
+    public MovieEntity(String movieId, String title, String description, String genres, String director, String actor,
+                       String producer, String language, int duration, Date releaseDate, String rating,
+                       String image, String trailerUrl, BigDecimal moviePrice) {
+        this.movieId = movieId;
         this.title = title;
         this.description = description;
         this.genres = genres;
         this.director = director;
         this.actor = actor;
-        this.producter = producter;
+        this.producer = producer;
         this.language = language;
         this.duration = duration;
-        this.release_date = release_date;
+        this.releaseDate = releaseDate;
         this.rating = rating;
         this.image = image;
-        this.trailer_url = trailer_url;
-        this.movie_price = movie_price;
+        this.trailerUrl = trailerUrl;
+        this.moviePrice = moviePrice;
     }
 
     // Các hàm getter và setter.
     
-    public String getMovie_id() {
-        return movie_id;
+    public String getMovieId() {
+        return movieId;
     }
 
-    public void setMovie_id(String movie_id) {
-        this.movie_id = movie_id;
+    public void setMovieId(String movieId) {
+        this.movieId = movieId;
     }
 
     public String getTitle() {
@@ -199,12 +202,12 @@ public class MovieEntity {
         this.actor = actor;
     }
 
-    public String getProducter() {
-        return producter;
+    public String getProducer() {
+        return producer;
     }
 
-    public void setProducter(String producter) {
-        this.producter = producter;
+    public void setProducer(String producer) {
+        this.producer = producer;
     }
 
     public String getLanguage() {
@@ -215,20 +218,20 @@ public class MovieEntity {
         this.language = language;
     }
 
-    public String getDuration() {
+    public int getDuration() {
         return duration;
     }
 
-    public void setDuration(String duration) {
+    public void setDuration(int duration) {
         this.duration = duration;
     }
 
-    public String getRelease_date() {
-        return release_date;
+    public Date getReleaseDate() {
+        return releaseDate;
     }
 
-    public void setRelease_date(String release_date) {
-        this.release_date = release_date;
+    public void setReleaseDate(Date releaseDate) {
+        this.releaseDate = releaseDate;
     }
 
     public String getRating() {
@@ -247,28 +250,28 @@ public class MovieEntity {
         this.image = image;
     }
 
-    public String getTrailer_url() {
-        return trailer_url;
+    public String getTrailerUrl() {
+        return trailerUrl;
     }
 
-    public void setTrailer_url(String trailer_url) {
-        this.trailer_url = trailer_url;
+    public void setTrailerUrl(String trailerUrl) {
+        this.trailerUrl = trailerUrl;
     }
 
-    public double getMovie_price() {
-        return movie_price;
+    public BigDecimal getMoviePrice() {
+        return moviePrice;
     }
 
-    public void setMovie_price(double movie_price) {
-        this.movie_price = movie_price;
+    public void setMoviePrice(BigDecimal moviePrice) {
+        this.moviePrice = moviePrice;
     }
 
     /**
      * Lấy danh sách showtimes liên kết.
      *
      * @return danh sách showtimes liên kết.
-    */
-    public List<ShowtimeEntity> showtimes()  {
+     */
+    public List<ShowtimeEntity> getShowtimes() {
         return showtimes;
     }
 
@@ -276,8 +279,8 @@ public class MovieEntity {
      * Lấy danh sách reviews liên kết.
      *
      * @return danh sách reviews liên kết.
-    */
-    public List<ReviewEntity> reviews() {
+     */
+    public List<ReviewEntity> getReviews() {
         return reviews;
     }
 }

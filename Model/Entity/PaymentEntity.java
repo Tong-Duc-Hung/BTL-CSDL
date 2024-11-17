@@ -1,84 +1,96 @@
-package com.example.movieticketbooking.Model.Entity;
+package com.example.demo.Model.Entity;
 
+import java.math.BigDecimal;
+import java.sql.Date;
 import jakarta.persistence.*;
 
 /**
  * Lớp Entity đại diện cho bảng payments.
-*/
+ */
 @Entity
 @Table(name = "payments")
 public class PaymentEntity {
 
     /**
      * Enum đại diện cho trạng thái thanh toán.
-    */
-    public enum Payment_status {
-        Completed,
-        Canceled
+     */
+    public enum PaymentStatus {
+        pending,
+        completed,
+        canceled
     }
 
     /**
      * Khóa chính của bảng.
-    */
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "payment_id", nullable = false, unique = true)
-    private int payment_id;
+    private int paymentId;
 
     /**
      * Liên kết với bảng bookings thông qua booking_id.
-    */
-    @ManyToOne
+     */
+    @OneToOne
     @JoinColumn(name = "booking_id", nullable = false)
     private BookingEntity booking;
 
     /**
      * Ngày thanh toán.
-    */
+     */
     @Column(name = "payment_date", nullable = false)
-    private String payment_date;
+    private Date paymentDate;
 
     /**
      * Tổng số tiền thanh toán.
-    */
-    @Column(name = "total_amount", precision = 10, scale = 2, nullable = false)
-    private double total_amount;
+     */
+    @Column(name = "total_amount", nullable = false, precision = 10, scale = 2)
+    private BigDecimal totalAmount;
 
     /**
      * Trạng thái thanh toán.
-    */
+     */
     @Enumerated(EnumType.STRING)
     @Column(name = "payment_status", nullable = false)
-    private Payment_status payment_status;
+    private PaymentStatus paymentStatus;
+
+    /**
+     * Liên kết với bảng SupportedBanks thông qua bank_id.
+     */
+    @ManyToOne
+    @JoinColumn(name = "bank_id", nullable = false)
+    private SupportedBankEntity bank;
 
     /**
      * Constructor mặc định.
-    */
+     */
     public PaymentEntity() {}
 
     /**
      * Constructor có tham số.
      *
      * @param booking Đối tượng booking liên kết.
-     * @param payment_date Ngày thanh toán.
-     * @param total_amount Tổng số tiền thanh toán.
-     * @param payment_status Trạng thái thanh toán.
-    */
-    public PaymentEntity(BookingEntity booking, String payment_date, double total_amount, Payment_status payment_status) {
+     * @param paymentDate Ngày thanh toán.
+     * @param totalAmount Tổng số tiền thanh toán.
+     * @param paymentStatus Trạng thái thanh toán.
+     * @param bank Đối tượng bank liên kết.
+     */
+    public PaymentEntity(BookingEntity booking, Date paymentDate, BigDecimal totalAmount, PaymentStatus paymentStatus, SupportedBankEntity bank) {
         this.booking = booking;
-        this.payment_date = payment_date;
-        this.total_amount = total_amount;
-        this.payment_status = payment_status;
+        this.paymentDate = paymentDate;
+        this.totalAmount = totalAmount;
+        this.paymentStatus = paymentStatus;
+        this.bank = bank;
     }
 
     // Các hàm getter và setter.
 
-    public int getPayment_id() {
-        return payment_id;
+    public int getPaymentId() {
+        return paymentId;
     }
 
-    public void setPayment_id(int payment_id) {
-        this.payment_id = payment_id;
+    public void setPaymentId(int paymentId) {
+        this.paymentId = paymentId;
     }
 
     public BookingEntity getBooking() {
@@ -89,27 +101,35 @@ public class PaymentEntity {
         this.booking = booking;
     }
 
-    public String getPayment_date() {
-        return payment_date;
+    public Date getPaymentDate() {
+        return paymentDate;
     }
 
-    public void setPayment_date(String payment_date) {
-        this.payment_date = payment_date;
+    public void setPaymentDate(Date paymentDate) {
+        this.paymentDate = paymentDate;
     }
 
-    public double getTotal_amount() {
-        return total_amount;
+    public BigDecimal getTotalAmount() {
+        return totalAmount;
     }
 
-    public void setTotal_amount(double total_amount) {
-        this.total_amount = total_amount;
+    public void setTotalAmount(BigDecimal totalAmount) {
+        this.totalAmount = totalAmount;
     }
 
-    public Payment_status getPayment_status() {
-        return payment_status;
+    public PaymentStatus getPaymentStatus() {
+        return paymentStatus;
     }
 
-    public void setPayment_status(Payment_status payment_status) {
-        this.payment_status = payment_status;
+    public void setPaymentStatus(PaymentStatus paymentStatus) {
+        this.paymentStatus = paymentStatus;
+    }
+
+    public SupportedBankEntity getBank() {
+        return bank;
+    }
+
+    public void setBank(SupportedBankEntity bank) {
+        this.bank = bank;
     }
 }

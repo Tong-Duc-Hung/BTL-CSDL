@@ -1,74 +1,81 @@
-package com.example.movieticketbooking.Model.Entity;
+package com.example.demo.Model.Entity;
 
-import java.util.*;
 import jakarta.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Lớp Entity đại diện cho bảng auditoriums.
-*/
+ */
 @Entity
 @Table(name = "auditoriums")
 public class AuditoriumEntity {
 
     /**
      * Khóa chính của bảng.
-    */
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "auditorium_id", nullable = false, unique = true)
-    private int auditorium_id;
+    private int auditoriumId;
 
     /**
      * Liên kết với bảng theater thông qua theater_id.
-    */
+     */
     @ManyToOne
     @JoinColumn(name = "theater_id", nullable = false)
     private TheaterEntity theater;
 
     /**
      * Tên của auditorium.
-    */
-    @Column(name = "auditorium_name", length = 255)
-    private String auditorium_name;
+     */
+    @Column(name = "auditorium_name", nullable = false, length = 255)
+    private String auditoriumName;
 
     /**
      * Số chỗ ngồi của auditorium.
-    */
-    @Column(name = "auditorium_seats")
-    private int auditorium_seats;
+     */
+    @Column(name = "auditorium_seats", nullable = false)
+    private int auditoriumSeats;
 
     /**
      * Liên kết với bảng showtimes thông qua thuộc tính auditorium.
-    */
+     */
     @OneToMany(mappedBy = "auditorium", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<ShowtimeEntity> showtimes = new ArrayList<>();
 
     /**
+     * Danh sách ghế liên kết với auditorium.
+     */
+    @OneToMany(mappedBy = "auditorium", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<SeatEntity> seats = new ArrayList<>();
+
+    /**
      * Constructor mặc định.
-    */
+     */
     public AuditoriumEntity() {}
 
     /**
      * Constructor có tham số.
      *
      * @param theater Đối tượng theater liên kết.
-     * @param auditorium_name Tên của auditorium.
-     * @param auditorium_seats Số chỗ ngồi của auditorium.
-    */
-    public AuditoriumEntity(TheaterEntity theater, String auditorium_name, Integer auditorium_seats) {
+     * @param auditoriumName Tên của auditorium.
+     * @param auditoriumSeats Số chỗ ngồi của auditorium.
+     */
+    public AuditoriumEntity(TheaterEntity theater, String auditoriumName, int auditoriumSeats) {
         this.theater = theater;
-        this.auditorium_name = auditorium_name;
-        this.auditorium_seats = auditorium_seats;
+        this.auditoriumName = auditoriumName;
+        this.auditoriumSeats = auditoriumSeats;
     }
 
     // Các hàm getter và setter.
 
-    public int getAuditorium_id() {
-        return auditorium_id;
+    public int getAuditoriumId() {
+        return auditoriumId;
     }
 
-    public void setAuditorium_id(int auditorium_id) {
-        this.auditorium_id = auditorium_id;
+    public void setAuditoriumId(int auditoriumId) {
+        this.auditoriumId = auditoriumId;
     }
 
     public TheaterEntity getTheater() {
@@ -79,30 +86,37 @@ public class AuditoriumEntity {
         this.theater = theater;
     }
 
-
-    public String getAuditorium_name() {
-        return auditorium_name;
+    public String getAuditoriumName() {
+        return auditoriumName;
     }
 
-
-    public void setAuditorium_name(String auditorium_name) {
-        this.auditorium_name = auditorium_name;
+    public void setAuditoriumName(String auditoriumName) {
+        this.auditoriumName = auditoriumName;
     }
 
-    public int getAuditorium_seats() {
-        return auditorium_seats;
+    public int getAuditoriumSeats() {
+        return auditoriumSeats;
     }
 
-    public void setAuditorium_seats(int auditorium_seats) {
-        this.auditorium_seats = auditorium_seats;
+    public void setAuditoriumSeats(int auditoriumSeats) {
+        this.auditoriumSeats = auditoriumSeats;
     }
 
     /**
      * Lấy danh sách showtimes liên kết.
      *
      * @return danh sách showtimes liên kết.
-    */
+     */
     public List<ShowtimeEntity> getShowtimes() {
         return showtimes;
+    }
+
+    /**
+     * Lấy danh sách ghế liên kết.
+     *
+     * @return danh sách ghế liên kết.
+     */
+    public List<SeatEntity> getSeats() {
+        return seats;
     }
 }

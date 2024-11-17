@@ -1,106 +1,105 @@
-package com.example.movieticketbooking.Model.Entity;
+package com.example.demo.Model.Entity;
 
-import java.util.*;
 import jakarta.persistence.*;
+import java.sql.Date;
 
 /**
  * Lớp Entity đại diện cho bảng bookings.
-*/
+ */
 @Entity
-@Table(name="bookings")
+@Table(name = "bookings")
 public class BookingEntity {
 
     /**
      * Enum đại diện cho trạng thái đặt vé.
-    */
-    public enum Booking_status {
-        Confirmed,
-        Canceled
+     */
+    public enum BookingStatus {
+        confirmed,
+        canceled
     }
 
     /**
      * Khóa chính của bảng.
-    */
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="booking_id", nullable=false, unique=true)
-    private int booking_id;
+    @Column(name = "booking_id", nullable = false, unique = true)
+    private int bookingId;
 
     /**
      * Liên kết với bảng user thông qua user_id.
-    */
+     */
     @ManyToOne
-    @JoinColumn(name="user_id", nullable=false)
+    @JoinColumn(name = "user_id", nullable = false)
     private UserEntity user;
 
     /**
      * Liên kết với bảng showtime thông qua showtime_id.
-    */
+     */
     @ManyToOne
-    @JoinColumn(name="showtime_id", nullable=false)
+    @JoinColumn(name = "showtime_id", nullable = false)
     private ShowtimeEntity showtime;
 
     /**
      * Thuộc tính ngày đặt vé.
-    */
-    @Column(name="booking_date")
-    private String booking_date;
+     */
+    @Column(name = "booking_date", nullable = false)
+    private Date bookingDate;
 
     /**
      * Thuộc tính trạng thái đặt vé.
-    */
+     */
     @Enumerated(EnumType.STRING)
-    @Column(name="booking_status", nullable=false)
-    private Booking_status booking_status;
+    @Column(name = "booking_status", nullable = false)
+    private BookingStatus bookingStatus;
 
     /**
      * Thuộc tính số chỗ đã đặt.
-    */
-    @Column(name="seats_booked")
-    private int seats_booked;
+     */
+    @Column(name = "seats_booked", nullable = false)
+    private int seatsBooked;
 
     /**
-     * Liên kết với bảng booking_details thông qua thuộc tính booking.
-    */
-    @OneToMany(mappedBy = "booking", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Booking_detailEntity> booking_details = new ArrayList<>();
+     * Thuộc tính số chỗ ban đầu đã đặt.
+     */
+    @Column(name = "original_seats_booked", nullable = false, columnDefinition = "INT DEFAULT 0")
+    private int originalSeatsBooked;
 
-    /**
-     * Liên kết với bảng payments thông qua thuộc tính booking.
-    */
-    @OneToMany(mappedBy = "booking", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<PaymentEntity> payments = new ArrayList<>();
+    @OneToOne(mappedBy = "booking", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private PaymentEntity payment;
 
     /**
      * Constructor mặc định.
-    */
+     */
     public BookingEntity() {}
 
     /**
      * Constructor có tham số.
      *
-     * @param user Đối tượng user liên kết.
-     * @param showtime Đối tượng showtime liên kết.
-     * @param booking_date Ngày đặt vé.
-     * @param booking_status Trạng thái đặt vé.
-     * @param seats_booked Số chỗ đã đặt.
-    */
-    public BookingEntity(UserEntity user, ShowtimeEntity showtime, String booking_date, Booking_status booking_status, int seats_booked) {
+     * @param user        Đối tượng user liên kết.
+     * @param showtime    Đối tượng showtime liên kết.
+     * @param bookingDate Ngày đặt vé.
+     * @param bookingStatus Trạng thái đặt vé.
+     * @param seatsBooked  Số chỗ đã đặt.
+     * @param originalSeatsBooked Số chỗ ban đầu đã đặt.
+     */
+    public BookingEntity(UserEntity user, ShowtimeEntity showtime, Date bookingDate, BookingStatus bookingStatus, int seatsBooked, int originalSeatsBooked) {
         this.user = user;
         this.showtime = showtime;
-        this.booking_date = booking_date;
-        this.booking_status = booking_status;
-        this.seats_booked = seats_booked;
+        this.bookingDate = bookingDate;
+        this.bookingStatus = bookingStatus;
+        this.seatsBooked = seatsBooked;
+        this.originalSeatsBooked = originalSeatsBooked;
     }
 
     // Các hàm getter và setter.
 
-    public int getBooking_id() {
-        return booking_id;
+    public int getBookingId() {
+        return bookingId;
     }
 
-    public void setBooking_id(int booking_id) {
-        this.booking_id = booking_id;
+    public void setBookingId(int bookingId) {
+        this.bookingId = bookingId;
     }
 
     public UserEntity getUser() {
@@ -119,45 +118,43 @@ public class BookingEntity {
         this.showtime = showtime;
     }
 
-    public String getBooking_date() {
-        return booking_date;
+    public Date getBookingDate() {
+        return bookingDate;
     }
 
-    public void setBooking_date(String booking_date) {
-        this.booking_date = booking_date;
+    public void setBookingDate(Date bookingDate) {
+        this.bookingDate = bookingDate;
     }
 
-    public Booking_status getBooking_status() {
-        return booking_status;
+    public BookingStatus getBookingStatus() {
+        return bookingStatus;
     }
 
-    public void setBooking_status(Booking_status booking_status) {
-        this.booking_status = booking_status;
+    public void setBookingStatus(BookingStatus bookingStatus) {
+        this.bookingStatus = bookingStatus;
     }
 
-    public int getSeats_booked() {
-        return seats_booked;
+    public int getSeatsBooked() {
+        return seatsBooked;
     }
 
-    public void setSeats_booked(int seats_booked) {
-        this.seats_booked = seats_booked;
+    public void setSeatsBooked(int seatsBooked) {
+        this.seatsBooked = seatsBooked;
     }
 
-    /**
-     * Lấy danh sách chi tiết đặt vé liên kết.
-     *
-     * @return danh sách chi tiết đặt vé liên kết.
-    */
-    public List<Booking_detailEntity> bookings() {
-        return booking_details;
+    public int getOriginalSeatsBooked() {
+        return originalSeatsBooked;
     }
 
-    /**
-     * Lấy danh sách thanh toán liên kết.
-     *
-     * @return danh sách thanh toán liên kết.
-    */
-    public List<PaymentEntity> payments() {
-        return payments;
+    public void setOriginalSeatsBooked(int originalSeatsBooked) {
+        this.originalSeatsBooked = originalSeatsBooked;
+    }
+
+    public PaymentEntity getPayment() {
+        return payment;
+    }
+
+    public void setPayment(PaymentEntity payment) {
+        this.payment = payment;
     }
 }

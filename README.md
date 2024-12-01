@@ -65,7 +65,7 @@
 
 ## Thông tin dữ liệu trong các bảng
 - Các thông tin trong các bảng users, showtimes, theaters, auditoriums, payments, seats, bookings, tickets, supportedbanks, payments, customer_feedback, reviews đều là dữ liệu giả.
-- Dữ liệu trong bảng movies trừ movie_id là dữ liệu giả thì các dữ liệu còn lại đều là thật đều có nguồn thông tin từ trên google.
+- Dữ liệu trong bảng movies trừ movie_id và giá phim là dữ liệu giả thì các dữ liệu còn lại đều là thật đều có nguồn thông tin từ trên google.
 
 ## Cách tạo ra dữ liệu trong database
 - Dựa vào ChatGpt và Microsoft Copilot để viết mã java tạo dữ liệu giả.

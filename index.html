@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cinema Management</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        /* Header and Navigation */
+        header {
+            background-color: #ff4081;
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header h1 {
+            font-size: 24px;
+            margin: 0;
+        }
+
+        nav {
+            display: flex;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-left: 20px;
+            font-size: 16px;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        /* Container for movies */
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .movies {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        .movie-card {
+            width: 300px;
+            margin: 15px;
+            padding: 15px;
+            background-color: #f8f8f8;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+            text-align: center;
+        }
+
+        .movie-card img {
+            width: 100%;
+            height: 200px;
+            border-radius: 8px;
+        }
+
+        .movie-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .movie-card h3 {
+            margin: 10px 0;
+            color: #ff4081;
+        }
+
+        .movie-card p {
+            margin: 5px 0;
+            color: #555;
+        }
+
+        .movie-card a {
+            display: inline-block;
+            margin-top: 10px;
+            text-decoration: none;
+            color: white;
+            background-color: #ff4081;
+            padding: 10px 20px;
+            border-radius: 5px;
+        }
+
+        .movie-card a:hover {
+            background-color: #e6396d;
+        }
+    </style>
+</head>
+<body>
+<!-- Header -->
+<header>
+    <h1>Cinema Management</h1>
+    <nav>
+        <a href="/movies">Movies</a>
+        <a href="/tickets">Tickets</a>
+        <a href="/auditorium">Auditoriums</a>
+        <a href="/bookings">Bookings</a>
+        <a href="/feedback">Feedbacks</a>
+        <a href="/payments">Payment</a>
+        <a href="/reviews">Review</a>
+        <a href="/seat">Seat</a>
+        <a href="/showtimes">Showtimes</a>
+        <a href="/supportedBanks">Supported Banks</a>
+        <a href="/users">Users</a>
+    </nav>
+</header>
+
+<!-- Movies Section -->
+<div class="container" id="movies">
+    <h2>Featured Movies</h2>
+    <div class="movies">
+        <!-- Dynamically Generated Movie -->
+        <div class="movie-card">
+            <img src="movie-poster1.jpg" alt="Movie Poster">
+            <h3>Movie Title 1</h3>
+            <p>Genre: Action</p>
+            <p>Rating: 8.5</p>
+            <a href="/movies/movieid/1">View Details</a>
+        </div>
+
+        <div class="movie-card">
+            <img src="movie-poster2.jpg" alt="Movie Poster">
+            <h3>Movie Title 2</h3>
+            <p>Genre: Drama</p>
+            <p>Rating: 7.9</p>
+            <a href="/movies/movieid/2">View Details</a>
+        </div>
+
+        <div class="movie-card">
+            <img src="movie-poster3.jpg" alt="Movie Poster">
+            <h3>Movie Title 3</h3>
+            <p>Genre: Comedy</p>
+            <p>Rating: 8.2</p>
+            <a href="/movies/movieid/3">View Details</a>
+        </div>
+    </div>
+</div>
+
+<!-- Footer -->
+<footer>
+    <p>&copy; 2024 Cinema Management. All rights reserved.</p>
+</footer>
+
+</body>
+</html>

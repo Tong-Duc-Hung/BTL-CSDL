@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Feedback Management</title>
+  <style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f4f4f4;
+        color: #333;
+    }
+
+    /* Header */
+    header {
+        background-color: #ff4081;
+        color: white;
+        padding: 15px 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    header h1 {
+        font-size: 24px;
+        margin: 0;
+    }
+
+    .container {
+        max-width: 1200px;
+        margin: 20px auto;
+        padding: 20px;
+        background-color: white;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .feedback-management-section {
+        margin-bottom: 30px;
+    }
+
+    .feedback-management-section h2 {
+        font-size: 22px;
+        color: #ff4081;
+    }
+
+    label {
+        font-size: 16px;
+        margin-bottom: 8px;
+        display: inline-block;
+    }
+
+    input, textarea {
+        padding: 8px;
+        font-size: 16px;
+        width: 100%;
+        max-width: 300px;
+        margin-bottom: 15px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+    }
+
+    button {
+        padding: 10px 15px;
+        background-color: #ff4081;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 16px;
+    }
+
+    button:hover {
+        background-color: #e6396d;
+    }
+
+    /* Feedback List */
+    .feedback-list ul {
+        list-style-type: none;
+        padding: 0;
+    }
+
+    .feedback-list li {
+        padding: 10px;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .feedback-list li:last-child {
+        border-bottom: none;
+    }
+
+    .feedback-list li a {
+        color: #ff4081;
+        text-decoration: none;
+    }
+
+    .feedback-list li a:hover {
+        text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+<!-- Header -->
+<header>
+  <h1>Feedback Management System</h1>
+</header>
+
+<!-- Container -->
+<div class="container">
+  <!-- Create Feedback Section -->
+  <div class="feedback-management-section">
+    <h2>Create Customer Feedback</h2>
+
+    <label for="customerFeedbackMessage">Feedback Message:</label>
+    <textarea id="customerFeedbackMessage" rows="4"></textarea><br>
+
+    <button onclick="createCustomerFeedback()">Submit Feedback</button>
+  </div>
+
+  <!-- View Feedback by ID Section -->
+  <div class="feedback-management-section">
+    <h2>View Customer Feedback</h2>
+    <label for="feedbackId">Feedback ID:</label>
+    <input type="number" id="feedbackId"><br>
+
+    <button onclick="viewCustomerFeedback()">View Feedback</button>
+
+    <h3>Feedback Details:</h3>
+    <div id="feedbackDetails">
+      <!-- Feedback details will appear here -->
+    </div>
+  </div>
+
+  <!-- Update Staff Response Section -->
+  <div class="feedback-management-section">
+    <h2>Update Staff Response</h2>
+    <label for="responseFeedbackId">Feedback ID:</label>
+    <input type="number" id="responseFeedbackId"><br>
+
+    <label for="staffResponseMessage">Staff Response:</label>
+    <textarea id="staffResponseMessage" rows="4"></textarea><br>
+
+    <button onclick="updateStaffResponse()">Submit Response</button>
+  </div>
+
+  <!-- Delete Feedback Section -->
+  <div class="feedback-management-section">
+    <h2>Delete Feedback</h2>
+    <label for="deleteFeedbackId">Feedback ID:</label>
+    <input type="number" id="deleteFeedbackId"><br><br>
+
+    <button onclick="deleteFeedback()">Delete Feedback</button>
+  </div>
+
+  <!-- List of All Customer Feedback -->
+  <div class="feedback-management-section">
+    <h2>All Customer Feedbacks</h2>
+    <button onclick="getAllCustomerFeedbacks()">Load Customer Feedbacks</button>
+
+    <div class="feedback-list" id="customerFeedbackList">
+      <ul></ul>
+    </div>
+  </div>
+
+  <!-- List of All Staff Responses -->
+  <div class="feedback-management-section">
+    <h2>All Staff Responses</h2>
+    <button onclick="getAllStaffResponses()">Load Staff Responses</button>
+
+    <div class="feedback-list" id="staffResponseList">
+      <ul></ul>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Create customer feedback
+  function createCustomerFeedback() {
+      const message = document.getElementById('customerFeedbackMessage').value;
+
+      fetch('/feedbacks/customer/create', {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ message: message }),
+      })
+      .then(response => response.json())
+      .then(data => {
+          alert('Feedback submitted successfully!');
+      })
+      .catch(error => {
+          console.error('Error:', error);
+          alert('Error submitting feedback');
+      });
+  }
+
+  // View feedback by ID
+  function viewCustomerFeedback() {
+      const feedbackId = document.getElementById('feedbackId').value;
+      fetch(`/feedbacks/customer/${feedbackId}`)
+          .then(response => response.json())
+          .then(data => {
+              const details = `
+                  <p><strong>Feedback ID:</strong> ${data.feedbackId}</p>
+                  <p><strong>Message:</strong> ${data.message}</p>
+                  <p><strong>Status:</strong> ${data.status}</p>
+              `;
+              document.getElementById('feedbackDetails').innerHTML = details;
+          })
+          .catch(error => {
+              console.error('Error:', error);
+              alert('Error viewing feedback');
+          });
+  }
+
+  // Update staff response
+  function updateStaffResponse() {
+      const feedbackId = document.getElementById('responseFeedbackId').value;
+      const message = document.getElementById('staffResponseMessage').value;
+
+      fetch(`/feedbacks/staff/${feedbackId}`, {
+          method: 'PUT',
+          headers: {
+              'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ message: message }),
+      })
+      .then(response => response.json())
+      .then(data => {
+          alert('Staff response updated successfully!');
+      })
+      .catch(error => {
+          console.error('Error:', error);
+          alert('Error updating response');
+      });
+  }
+
+  // Delete feedback
+  function deleteFeedback() {
+      const feedbackId = document.getElementById('deleteFeedbackId').value;
+
+      fetch(`/feedbacks/${feedbackId}`, {
+          method: 'DELETE',
+          headers: {
+              'Content-Type': 'application/json',
+          },
+      })
+      .then(response => {
+          if (response.ok) {
+              alert('Feedback deleted successfully!');
+          } else {
+              alert('Failed to delete feedback.');
+          }
+      })
+      .catch(error => {
+          console.error('Error:', error);
+          alert('Error deleting feedback');
+      });
+  }
+
+  // Get all customer feedbacks
+  function getAllCustomerFeedbacks() {
+      fetch('/feedbacks/customer')
+          .then(response => response.json())
+          .then(data => {
+              const list = data.map(feedback => `<li>${feedback.message} - ID: ${feedback.feedbackId}</li>`).join('');
+              document.getElementById('customerFeedbackList').innerHTML = `<ul>${list}</ul>`;
+          })
+          .catch(error => {
+              console.error('Error:', error);
+              alert('Error loading feedbacks');
+          });
+  }
+
+  // Get all staff responses
+  function getAllStaffResponses() {
+      fetch('/feedbacks/staff')
+          .then(response => response.json())
+          .then(data => {
+              const list = data.map(response => `<li>${response.message} - Feedback ID: ${response.feedbackId}</li>`).join('');
+              document.getElementById('staffResponseList').innerHTML = `<ul>${list}</ul>`;
+          })
+          .catch(error => {
+              console.error('Error:', error);
+              alert('Error loading staff responses');
+          });
+  }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Management</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        /* Header */
+        header {
+            background-color: #ff4081;
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header h1 {
+            font-size: 24px;
+            margin: 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .movie-management-section {
+            margin-bottom: 30px;
+        }
+
+        .movie-management-section h2 {
+            font-size: 22px;
+            color: #ff4081;
+        }
+
+        label {
+            font-size: 16px;
+            margin-bottom: 8px;
+            display: inline-block;
+        }
+
+        input, textarea {
+            padding: 8px;
+            font-size: 16px;
+            width: 100%;
+            max-width: 300px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        button {
+            padding: 10px 15px;
+            background-color: #ff4081;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #e6396d;
+        }
+
+        /* Movies List */
+        .movies-list ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .movies-list li {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .movies-list li:last-child {
+            border-bottom: none;
+        }
+
+        .movies-list li a {
+            color: #ff4081;
+            text-decoration: none;
+        }
+
+        .movies-list li a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Header -->
+<header>
+    <h1>Movie Management System</h1>
+</header>
+
+<!-- Container -->
+<div class="container">
+    <!-- Create Movie Section -->
+    <div class="movie-management-section">
+        <h2>Create Movie</h2>
+
+        <label for="movieId">Movie ID:</label>
+        <input type="text" id="movieId"><br>
+
+        <label for="title">Title:</label>
+        <input type="text" id="title"><br>
+
+        <label for="description">Description:</label>
+        <textarea id="description" rows="4"></textarea><br>
+
+        <label for="genres">Genres:</label>
+        <input type="text" id="genres"><br>
+
+        <label for="director">Director:</label>
+        <input type="text" id="director"><br>
+
+        <label for="actor">Actor:</label>
+        <input type="text" id="actor"><br>
+
+        <label for="producer">Producer:</label>
+        <input type="text" id="producer"><br>
+
+        <label for="language">Language:</label>
+        <input type="text" id="language"><br>
+
+        <label for="duration">Duration (minutes):</label>
+        <input type="number" id="duration"><br>
+
+        <label for="releaseDate">Release Date:</label>
+        <input type="date" id="releaseDate"><br>
+
+        <label for="rating">Rating:</label>
+        <input type="text" id="rating"><br>
+
+        <label for="image">Image URL:</label>
+        <input type="text" id="image"><br>
+
+        <label for="trailerUrl">Trailer URL:</label>
+        <input type="text" id="trailerUrl"><br>
+
+        <label for="moviePrice">Movie Price:</label>
+        <input type="number" id="moviePrice" step="0.01"><br><br>
+
+        <button onclick="createMovie()">Create Movie</button>
+    </div>
+
+    <!-- Delete Movie Section -->
+    <div class="movie-management-section">
+        <h2>Delete Movie</h2>
+        <label for="deleteMovieId">Movie ID:</label>
+        <input type="text" id="deleteMovieId"><br><br>
+        <button onclick="deleteMovie()">Delete Movie</button>
+    </div>
+
+    <!-- Search Movies Section -->
+    <div class="movie-management-section">
+        <h2>Search Movies</h2>
+
+        <label for="searchReleaseDate">Release Date:</label>
+        <input type="date" id="searchReleaseDate"><br>
+
+        <label for="searchGenre">Genre:</label>
+        <input type="text" id="searchGenre"><br>
+
+        <label for="searchRating">Rating:</label>
+        <input type="text" id="searchRating"><br><br>
+
+        <button onclick="searchMovies()">Search</button>
+
+        <h3>Search Results:</h3>
+        <div class="movies-list">
+            <ul id="moviesList"></ul>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Create a new movie (POST request)
+    function createMovie() {
+        const movieData = {
+            movieId: document.getElementById('movieId').value,
+            title: document.getElementById('title').value,
+            description: document.getElementById('description').value,
+            genres: document.getElementById('genres').value,
+            director: document.getElementById('director').value,
+            actor: document.getElementById('actor').value,
+            producer: document.getElementById('producer').value,
+            language: document.getElementById('language').value,
+            duration: document.getElementById('duration').value,
+            releaseDate: document.getElementById('releaseDate').value,
+            rating: document.getElementById('rating').value,
+            image: document.getElementById('image').value,
+            trailerUrl: document.getElementById('trailerUrl').value,
+            moviePrice: document.getElementById('moviePrice').value
+        };
+
+        fetch('/movies/create', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(movieData)
+        })
+        .then(response => response.json())
+        .then(data => {
+            alert('Movie created successfully!');
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Error creating movie');
+        });
+    }
+
+    // Delete a movie (DELETE request)
+    function deleteMovie() {
+        const movieId = document.getElementById('deleteMovieId').value;
+
+        fetch(`/movies/${movieId}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        })
+        .then(response => {
+            if (response.ok) {
+                alert('Movie deleted successfully!');
+            } else {
+                alert('Failed to delete movie.');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Error deleting movie');
+        });
+    }
+
+    // Search movies (GET request)
+    function searchMovies() {
+        const releaseDate = document.getElementById('searchReleaseDate').value;
+        const genre = document.getElementById('searchGenre').value;
+        const rating = document.getElementById('searchRating').value;
+
+        let url = `/movies/search?`;
+
+        if (releaseDate) {
+            url += `releaseDate=${releaseDate}&`;
+        }
+        if (genre) {
+            url += `genre=${genre}&`;
+        }
+        if (rating) {
+            url += `rating=${rating}&`;
+        }
+
+        fetch(url)
+            .then(response => response.json())
+            .then(movies => {
+                const movieList = document.getElementById('moviesList');
+                movieList.innerHTML = ''; // Clear previous results
+
+                movies.forEach(movie => {
+                    const li = document.createElement('li');
+                    li.innerHTML = `<a href="#">${movie.title} (${movie.genres})</a>`;
+                    movieList.appendChild(li);
+                });
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Error searching movies');
+            });
+    }
+</script>
+
+</body>
+</html>

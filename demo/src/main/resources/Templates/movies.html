@@ -1,290 +1,485 @@
+
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Movie Management</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
-            color: #333;
-        }
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-        /* Header */
-        header {
-            background-color: #ff4081;
-            color: white;
-            padding: 15px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+  <!-- Font -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600%7CUbuntu:300,400,500,700" rel="stylesheet">
 
-        header h1 {
-            font-size: 24px;
-            margin: 0;
-        }
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/bootstrap-reboot.min.css">
+  <link rel="stylesheet" href="css/bootstrap-grid.min.css">
+  <link rel="stylesheet" href="css/owl.carousel.min.css">
+  <link rel="stylesheet" href="css/jquery.mCustomScrollbar.min.css">
+  <link rel="stylesheet" href="css/nouislider.min.css">
+  <link rel="stylesheet" href="css/ionicons.min.css">
+  <link rel="stylesheet" href="css/plyr.css">
+  <link rel="stylesheet" href="css/photoswipe.css">
+  <link rel="stylesheet" href="css/default-skin.css">
+  <link rel="stylesheet" href="css/main.css">
 
-        .container {
-            max-width: 1200px;
-            margin: 20px auto;
-            padding: 20px;
-            background-color: white;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
+  <!-- Favicons -->
+  <link rel="icon" type="image/png" href="icon/favicon-32x32.png" sizes="32x32">
+  <link rel="apple-touch-icon" href="icon/favicon-32x32.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="icon/apple-touch-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="icon/apple-touch-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="icon/apple-touch-icon-144x144.png">
 
-        .movie-management-section {
-            margin-bottom: 30px;
-        }
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+  <meta name="author" content="Dmitry Volkov">
+  <title>FlixGo – Online Movies, TV Shows & Cinema HTML Template</title>
 
-        .movie-management-section h2 {
-            font-size: 22px;
-            color: #ff4081;
-        }
+  <style>
+    .movie-management-section {
+    color: white;
 
-        label {
-            font-size: 16px;
-            margin-bottom: 8px;
-            display: inline-block;
-        }
+}
+  </style>
 
-        input, textarea {
-            padding: 8px;
-            font-size: 16px;
-            width: 100%;
-            max-width: 300px;
-            margin-bottom: 15px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-        }
-
-        button {
-            padding: 10px 15px;
-            background-color: #ff4081;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 16px;
-        }
-
-        button:hover {
-            background-color: #e6396d;
-        }
-
-        /* Movies List */
-        .movies-list ul {
-            list-style-type: none;
-            padding: 0;
-        }
-
-        .movies-list li {
-            padding: 10px;
-            border-bottom: 1px solid #ddd;
-        }
-
-        .movies-list li:last-child {
-            border-bottom: none;
-        }
-
-        .movies-list li a {
-            color: #ff4081;
-            text-decoration: none;
-        }
-
-        .movies-list li a:hover {
-            text-decoration: underline;
-        }
-    </style>
 </head>
-<body>
+<body class="body">
 
-<!-- Header -->
-<header>
-    <h1>Movie Management System</h1>
+<!-- header -->
+<header class="header">
+  <div class="header__wrap">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <div class="header__content">
+
+
+            <!-- header nav -->
+            <ul class="header__nav">
+              <li class="header__nav-item">
+                <a href="auditoriums.html" class="header__nav-link">Auditorium</a>
+              </li>
+              <li class="header__nav-item">
+                <a href="bookings.html" class="header__nav-link">Booking</a>
+              </li>
+              <li class="header__nav-item">
+                <a href="feedbacks.html" class="header__nav-link">Feedback</a>
+              </li>
+              <li class="header__nav-item">
+                <a href="movies.html" class="header__nav-link">Movie</a>
+              </li>
+              <li class="header__nav-item">
+                <a href="showtimes.html" class="header__nav-link">Showtime</a>
+              </li>
+              <li class="header__nav-item">
+                <a href="user.html" class="header__nav-link">User</a>
+              </li>
+
+              <li class="header__nav-item">
+                <a href="seat.html" class="header__nav-link">Seat</a>
+              </li>
+              <li class="header__nav-item">
+                <a href="theators.html" class="header__nav-link">Theater</a>
+              </li>
+              <li class="header__nav-item">
+                <a href="payments.html" class="header__nav-link">Payment</a>
+              </li>
+              <li class="header__nav-item">
+                <a href="reviews.html" class="header__nav-link">Review</a>
+              </li>
+              <li class="header__nav-item">
+                <a href="tickets.html" class="header__nav-link">Ticket</a>
+              </li>
+            </ul>
+            <!-- end header nav -->
+
+
+            <!-- header auth -->
+            <div class="header__auth">
+              <button class="header__search-btn" type="button">
+                <i class="icon ion-ios-search"></i>
+              </button>
+
+              <a href="signin.html" class="header__sign-in">
+                <i class="icon ion-ios-log-in"></i>
+                <span>sign in</span>
+              </a>
+            </div>
+            <!-- end header auth -->
+
+            <!-- header menu btn -->
+            <button class="header__btn" type="button">
+              <span></span>
+              <span></span>
+              <span></span>
+            </button>
+            <!-- end header menu btn -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- header search -->
+  <form action="#" class="header__search">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <div class="header__search-content">
+            <input type="text" placeholder="Search for a movie, TV Series that you are looking for">
+
+            <button type="button">search</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+  <!-- end header search -->
 </header>
+<!-- end header -->
 
-<!-- Container -->
-<div class="container">
+<!-- home -->
+<section class="home">
+  <!-- home bg -->
+  <div class="owl-carousel home__bg">
+    <div class="item home__cover" data-bg="img/home/home__bg.jpg"></div>
+    <div class="item home__cover" data-bg="img/home/home__bg2.jpg"></div>
+    <div class="item home__cover" data-bg="img/home/home__bg3.jpg"></div>
+    <div class="item home__cover" data-bg="img/home/home__bg4.jpg"></div>
+  </div>
+  <!-- end home bg -->
+
+  <div class="container">
     <!-- Create Movie Section -->
     <div class="movie-management-section">
-        <h2>Create Movie</h2>
+      <h2>Create Movie</h2>
 
-        <label for="movieId">Movie ID:</label>
-        <input type="text" id="movieId"><br>
+      <label for="movieId">Movie ID:</label>
+      <input type="text" id="movieId"><br>
 
-        <label for="title">Title:</label>
-        <input type="text" id="title"><br>
+      <label for="title">Title:</label>
+      <input type="text" id="title"><br>
 
-        <label for="description">Description:</label>
-        <textarea id="description" rows="4"></textarea><br>
+      <label for="description">Description:</label>
+      <textarea id="description" rows="4"></textarea><br>
 
-        <label for="genres">Genres:</label>
-        <input type="text" id="genres"><br>
+      <label for="genres">Genres:</label>
+      <input type="text" id="genres"><br>
 
-        <label for="director">Director:</label>
-        <input type="text" id="director"><br>
+      <label for="director">Director:</label>
+      <input type="text" id="director"><br>
 
-        <label for="actor">Actor:</label>
-        <input type="text" id="actor"><br>
+      <label for="actor">Actor:</label>
+      <input type="text" id="actor"><br>
 
-        <label for="producer">Producer:</label>
-        <input type="text" id="producer"><br>
+      <label for="producer">Producer:</label>
+      <input type="text" id="producer"><br>
 
-        <label for="language">Language:</label>
-        <input type="text" id="language"><br>
+      <label for="language">Language:</label>
+      <input type="text" id="language"><br>
 
-        <label for="duration">Duration (minutes):</label>
-        <input type="number" id="duration"><br>
+      <label for="duration">Duration (minutes):</label>
+      <input type="number" id="duration"><br>
 
-        <label for="releaseDate">Release Date:</label>
-        <input type="date" id="releaseDate"><br>
+      <label for="releaseDate">Release Date:</label>
+      <input type="date" id="releaseDate"><br>
 
-        <label for="rating">Rating:</label>
-        <input type="text" id="rating"><br>
+      <label for="rating">Rating:</label>
+      <input type="text" id="rating"><br>
 
-        <label for="image">Image URL:</label>
-        <input type="text" id="image"><br>
+      <label for="image">Image URL:</label>
+      <input type="text" id="image"><br>
 
-        <label for="trailerUrl">Trailer URL:</label>
-        <input type="text" id="trailerUrl"><br>
+      <label for="trailerUrl">Trailer URL:</label>
+      <input type="text" id="trailerUrl"><br>
 
-        <label for="moviePrice">Movie Price:</label>
-        <input type="number" id="moviePrice" step="0.01"><br><br>
+      <label for="moviePrice">Movie Price:</label>
+      <input type="number" id="moviePrice" step="0.01"><br><br>
 
-        <button onclick="createMovie()">Create Movie</button>
+      <button onclick="createMovie()">Create Movie</button>
     </div>
 
     <!-- Delete Movie Section -->
     <div class="movie-management-section">
-        <h2>Delete Movie</h2>
-        <label for="deleteMovieId">Movie ID:</label>
-        <input type="text" id="deleteMovieId"><br><br>
-        <button onclick="deleteMovie()">Delete Movie</button>
+      <h2>Delete Movie</h2>
+      <label for="deleteMovieId">Movie ID:</label>
+      <input type="text" id="deleteMovieId"><br><br>
+      <button onclick="deleteMovie()">Delete Movie</button>
     </div>
 
     <!-- Search Movies Section -->
     <div class="movie-management-section">
-        <h2>Search Movies</h2>
+      <h2>Search Movies</h2>
 
-        <label for="searchReleaseDate">Release Date:</label>
-        <input type="date" id="searchReleaseDate"><br>
+      <label for="searchReleaseDate">Release Date:</label>
+      <input type="date" id="searchReleaseDate"><br>
 
-        <label for="searchGenre">Genre:</label>
-        <input type="text" id="searchGenre"><br>
+      <label for="searchGenre">Genre:</label>
+      <input type="text" id="searchGenre"><br>
 
-        <label for="searchRating">Rating:</label>
-        <input type="text" id="searchRating"><br><br>
+      <label for="searchRating">Rating:</label>
+      <input type="text" id="searchRating"><br><br>
 
-        <button onclick="searchMovies()">Search</button>
+      <button onclick="searchMovies()">Search</button>
 
-        <h3>Search Results:</h3>
-        <div class="movies-list">
-            <ul id="moviesList"></ul>
-        </div>
+      <h3>Search Results:</h3>
+      <div class="movies-list">
+        <ul id="moviesList"></ul>
+      </div>
     </div>
-</div>
+  </div>
+
+</section>
+
+
+
+
+<!-- partners -->
+<section class="section">
+  <div class="container">
+    <div class="row">
+      <!-- section title -->
+      <div class="col-12">
+        <h2 class="section__title section__title--no-margin">Our Partners</h2>
+      </div>
+      <!-- end section title -->
+
+      <!-- section text -->
+      <div class="col-12">
+        <p class="section__text section__text--last-with-margin">It is a long <b>established</b> fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using.</p>
+      </div>
+      <!-- end section text -->
+
+      <!-- partner -->
+      <div class="col-6 col-sm-4 col-md-3 col-lg-2">
+        <a href="#" class="partner">
+          <img src="img/partners/themeforest-light-background.png" alt="" class="partner__img">
+        </a>
+      </div>
+      <!-- end partner -->
+
+      <!-- partner -->
+      <div class="col-6 col-sm-4 col-md-3 col-lg-2">
+        <a href="#" class="partner">
+          <img src="img/partners/audiojungle-light-background.png" alt="" class="partner__img">
+        </a>
+      </div>
+      <!-- end partner -->
+
+      <!-- partner -->
+      <div class="col-6 col-sm-4 col-md-3 col-lg-2">
+        <a href="#" class="partner">
+          <img src="img/partners/codecanyon-light-background.png" alt="" class="partner__img">
+        </a>
+      </div>
+      <!-- end partner -->
+
+      <!-- partner -->
+      <div class="col-6 col-sm-4 col-md-3 col-lg-2">
+        <a href="#" class="partner">
+          <img src="img/partners/photodune-light-background.png" alt="" class="partner__img">
+        </a>
+      </div>
+      <!-- end partner -->
+
+      <!-- partner -->
+      <div class="col-6 col-sm-4 col-md-3 col-lg-2">
+        <a href="#" class="partner">
+          <img src="img/partners/activeden-light-background.png" alt="" class="partner__img">
+        </a>
+      </div>
+      <!-- end partner -->
+
+      <!-- partner -->
+      <div class="col-6 col-sm-4 col-md-3 col-lg-2">
+        <a href="#" class="partner">
+          <img src="img/partners/3docean-light-background.png" alt="" class="partner__img">
+        </a>
+      </div>
+      <!-- end partner -->
+    </div>
+  </div>
+</section>
+<!-- end partners -->
+
+<!-- footer -->
+<footer class="footer">
+  <div class="container">
+    <div class="row">
+      <!-- footer list -->
+      <div class="col-12 col-md-3">
+        <h6 class="footer__title">Download Our App</h6>
+        <ul class="footer__app">
+          <li><a href="#"><img src="img/Download_on_the_App_Store_Badge.svg" alt=""></a></li>
+          <li><a href="#"><img src="img/google-play-badge.png" alt=""></a></li>
+        </ul>
+      </div>
+      <!-- end footer list -->
+
+      <!-- footer list -->
+      <div class="col-6 col-sm-4 col-md-3">
+        <h6 class="footer__title">Resources</h6>
+        <ul class="footer__list">
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Pricing Plan</a></li>
+          <li><a href="#">Help</a></li>
+        </ul>
+      </div>
+      <!-- end footer list -->
+
+      <!-- footer list -->
+      <div class="col-6 col-sm-4 col-md-3">
+        <h6 class="footer__title">Legal</h6>
+        <ul class="footer__list">
+          <li><a href="#">Terms of Use</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Security</a></li>
+        </ul>
+      </div>
+      <!-- end footer list -->
+
+      <!-- footer list -->
+      <div class="col-12 col-sm-4 col-md-3">
+        <h6 class="footer__title">Contact</h6>
+        <ul class="footer__list">
+          <li><a href="tel:+18002345678">+1 (800) 234-5678</a></li>
+          <li><a href="mailto:support@moviego.com">support@flixgo.com</a></li>
+        </ul>
+        <ul class="footer__social">
+          <li class="facebook"><a href="#"><i class="icon ion-logo-facebook"></i></a></li>
+          <li class="instagram"><a href="#"><i class="icon ion-logo-instagram"></i></a></li>
+          <li class="twitter"><a href="#"><i class="icon ion-logo-twitter"></i></a></li>
+          <li class="vk"><a href="#"><i class="icon ion-logo-vk"></i></a></li>
+        </ul>
+      </div>
+      <!-- end footer list -->
+
+      <!-- footer copyright -->
+      <div class="col-12">
+        <div class="footer__copyright">
+          <small><a target="_blank" href="https://www.templateshub.net">Templates Hub</a></small>
+
+          <ul>
+            <li><a href="#">Terms of Use</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+          </ul>
+        </div>
+      </div>
+      <!-- end footer copyright -->
+    </div>
+  </div>
+</footer>
+<!-- end footer -->
 
 <script>
-    // Create a new movie (POST request)
-    function createMovie() {
-        const movieData = {
-            movieId: document.getElementById('movieId').value,
-            title: document.getElementById('title').value,
-            description: document.getElementById('description').value,
-            genres: document.getElementById('genres').value,
-            director: document.getElementById('director').value,
-            actor: document.getElementById('actor').value,
-            producer: document.getElementById('producer').value,
-            language: document.getElementById('language').value,
-            duration: document.getElementById('duration').value,
-            releaseDate: document.getElementById('releaseDate').value,
-            rating: document.getElementById('rating').value,
-            image: document.getElementById('image').value,
-            trailerUrl: document.getElementById('trailerUrl').value,
-            moviePrice: document.getElementById('moviePrice').value
-        };
+  // Create a new movie (POST request)
+  function createMovie() {
+      const movieData = {
+          movieId: document.getElementById('movieId').value,
+          title: document.getElementById('title').value,
+          description: document.getElementById('description').value,
+          genres: document.getElementById('genres').value,
+          director: document.getElementById('director').value,
+          actor: document.getElementById('actor').value,
+          producer: document.getElementById('producer').value,
+          language: document.getElementById('language').value,
+          duration: document.getElementById('duration').value,
+          releaseDate: document.getElementById('releaseDate').value,
+          rating: document.getElementById('rating').value,
+          image: document.getElementById('image').value,
+          trailerUrl: document.getElementById('trailerUrl').value,
+          moviePrice: document.getElementById('moviePrice').value
+      };
 
-        fetch('/movies/create', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(movieData)
-        })
-        .then(response => response.json())
-        .then(data => {
-            alert('Movie created successfully!');
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            alert('Error creating movie');
-        });
-    }
+      fetch('/movies/create', {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(movieData)
+      })
+      .then(response => response.json())
+      .then(data => {
+          alert('Movie created successfully!');
+      })
+      .catch(error => {
+          console.error('Error:', error);
+          alert('Error creating movie');
+      });
+  }
 
-    // Delete a movie (DELETE request)
-    function deleteMovie() {
-        const movieId = document.getElementById('deleteMovieId').value;
+  // Delete a movie (DELETE request)
+  function deleteMovie() {
+      const movieId = document.getElementById('deleteMovieId').value;
 
-        fetch(`/movies/${movieId}`, {
-            method: 'DELETE',
-            headers: {
-                'Content-Type': 'application/json',
-            }
-        })
-        .then(response => {
-            if (response.ok) {
-                alert('Movie deleted successfully!');
-            } else {
-                alert('Failed to delete movie.');
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            alert('Error deleting movie');
-        });
-    }
+      fetch(`/movies/${movieId}`, {
+          method: 'DELETE',
+          headers: {
+              'Content-Type': 'application/json',
+          }
+      })
+      .then(response => {
+          if (response.ok) {
+              alert('Movie deleted successfully!');
+          } else {
+              alert('Failed to delete movie.');
+          }
+      })
+      .catch(error => {
+          console.error('Error:', error);
+          alert('Error deleting movie');
+      });
+  }
 
-    // Search movies (GET request)
-    function searchMovies() {
-        const releaseDate = document.getElementById('searchReleaseDate').value;
-        const genre = document.getElementById('searchGenre').value;
-        const rating = document.getElementById('searchRating').value;
+  // Search movies (GET request)
+  function searchMovies() {
+      const releaseDate = document.getElementById('searchReleaseDate').value;
+      const genre = document.getElementById('searchGenre').value;
+      const rating = document.getElementById('searchRating').value;
 
-        let url = `/movies/search?`;
+      let url = `/movies/search?`;
 
-        if (releaseDate) {
-            url += `releaseDate=${releaseDate}&`;
-        }
-        if (genre) {
-            url += `genre=${genre}&`;
-        }
-        if (rating) {
-            url += `rating=${rating}&`;
-        }
+      if (releaseDate) {
+          url += `releaseDate=${releaseDate}&`;
+      }
+      if (genre) {
+          url += `genre=${genre}&`;
+      }
+      if (rating) {
+          url += `rating=${rating}&`;
+      }
 
-        fetch(url)
-            .then(response => response.json())
-            .then(movies => {
-                const movieList = document.getElementById('moviesList');
-                movieList.innerHTML = ''; // Clear previous results
+      fetch(url)
+          .then(response => response.json())
+          .then(movies => {
+              const movieList = document.getElementById('moviesList');
+              movieList.innerHTML = ''; // Clear previous results
 
-                movies.forEach(movie => {
-                    const li = document.createElement('li');
-                    li.innerHTML = `<a href="#">${movie.title} (${movie.genres})</a>`;
-                    movieList.appendChild(li);
-                });
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert('Error searching movies');
-            });
-    }
+              movies.forEach(movie => {
+                  const li = document.createElement('li');
+                  li.innerHTML = `<a href="#">${movie.title} (${movie.genres})</a>`;
+                  movieList.appendChild(li);
+              });
+          })
+          .catch(error => {
+              console.error('Error:', error);
+              alert('Error searching movies');
+          });
+  }
 </script>
 
+<!-- JS -->
+<script src="js/jquery-3.3.1.min.js"></script>
+<script src="js/bootstrap.bundle.min.js"></script>
+<script src="js/owl.carousel.min.js"></script>
+<script src="js/jquery.mousewheel.min.js"></script>
+<script src="js/jquery.mCustomScrollbar.min.js"></script>
+<script src="js/wNumb.js"></script>
+<script src="js/nouislider.min.js"></script>
+<script src="js/plyr.min.js"></script>
+<script src="js/jquery.morelines.min.js"></script>
+<script src="js/photoswipe.min.js"></script>
+<script src="js/photoswipe-ui-default.min.js"></script>
+<script src="js/main.js"></script>
 </body>
+
 </html>

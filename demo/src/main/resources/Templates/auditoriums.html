@@ -1,0 +1,408 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Font -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600%7CUbuntu:300,400,500,700" rel="stylesheet">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/bootstrap-reboot.min.css">
+  <link rel="stylesheet" href="css/bootstrap-grid.min.css">
+  <link rel="stylesheet" href="css/owl.carousel.min.css">
+  <link rel="stylesheet" href="css/jquery.mCustomScrollbar.min.css">
+  <link rel="stylesheet" href="css/nouislider.min.css">
+  <link rel="stylesheet" href="css/ionicons.min.css">
+  <link rel="stylesheet" href="css/plyr.css">
+  <link rel="stylesheet" href="css/photoswipe.css">
+  <link rel="stylesheet" href="css/default-skin.css">
+  <link rel="stylesheet" href="css/main.css">
+
+  <!-- Favicons -->
+  <link rel="icon" type="image/png" href="icon/favicon-32x32.png" sizes="32x32">
+  <link rel="apple-touch-icon" href="icon/favicon-32x32.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="icon/apple-touch-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="icon/apple-touch-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="icon/apple-touch-icon-144x144.png">
+
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+  <meta name="author" content="Dmitry Volkov">
+  <title>FlixGo – Online Movies, TV Shows & Cinema HTML Template</title>
+
+</head>
+<body class="body">
+
+<!-- header -->
+<header class="header">
+  <div class="header__wrap">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <div class="header__content">
+
+
+            <!-- header nav -->
+            <ul class="header__nav">
+              <li class="header__nav-item">
+                <a href="auditoriums.html" class="header__nav-link">Auditorium</a>
+              </li>
+              <li class="header__nav-item">
+                <a href="bookings.html" class="header__nav-link">Booking</a>
+              </li>
+              <li class="header__nav-item">
+                <a href="feedbacks.html" class="header__nav-link">Feedback</a>
+              </li>
+              <li class="header__nav-item">
+                <a href="movies.html" class="header__nav-link">Movie</a>
+              </li>
+              <li class="header__nav-item">
+                <a href="showtimes.html" class="header__nav-link">Showtime</a>
+              </li>
+              <li class="header__nav-item">
+                <a href="user.html" class="header__nav-link">User</a>
+              </li>
+
+              <li class="header__nav-item">
+                <a href="seat.html" class="header__nav-link">Seat</a>
+              </li>
+              <li class="header__nav-item">
+                <a href="theators.html" class="header__nav-link">Theater</a>
+              </li>
+              <li class="header__nav-item">
+                <a href="payments.html" class="header__nav-link">Payment</a>
+              </li>
+              <li class="header__nav-item">
+                <a href="reviews.html" class="header__nav-link">Review</a>
+              </li>
+              <li class="header__nav-item">
+                <a href="tickets.html" class="header__nav-link">Ticket</a>
+              </li>
+            </ul>
+            <!-- end header nav -->
+
+
+            <!-- header auth -->
+            <div class="header__auth">
+              <button class="header__search-btn" type="button">
+                <i class="icon ion-ios-search"></i>
+              </button>
+
+              <a href="signin.html" class="header__sign-in">
+                <i class="icon ion-ios-log-in"></i>
+                <span>sign in</span>
+              </a>
+            </div>
+            <!-- end header auth -->
+
+            <!-- header menu btn -->
+            <button class="header__btn" type="button">
+              <span></span>
+              <span></span>
+              <span></span>
+            </button>
+            <!-- end header menu btn -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- header search -->
+  <form action="#" class="header__search">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <div class="header__search-content">
+            <input type="text" placeholder="Search for a movie, TV Series that you are looking for">
+
+            <button type="button">search</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+  <!-- end header search -->
+</header>
+<!-- end header -->
+
+<!-- home -->
+<section class="home">
+  <!-- home bg -->
+  <div class="owl-carousel home__bg">
+    <div class="item home__cover" data-bg="img/home/home__bg.jpg"></div>
+    <div class="item home__cover" data-bg="img/home/home__bg2.jpg"></div>
+    <div class="item home__cover" data-bg="img/home/home__bg3.jpg"></div>
+    <div class="item home__cover" data-bg="img/home/home__bg4.jpg"></div>
+  </div>
+  <!-- end home bg -->
+
+  <div class="container">
+
+    <!-- Form for creating a new auditorium -->
+    <div class="form-container">
+      <h2>Create Auditorium</h2>
+      <form id="createAuditoriumForm">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" placeholder="Enter auditorium name" required>
+        <label for="capacity">Capacity:</label>
+        <input type="number" id="capacity" name="capacity" placeholder="Enter capacity" required>
+        <button type="submit">Create</button>
+      </form>
+    </div>
+
+    <!-- Table to display all auditoriums -->
+    <div class="auditorium-list">
+      <h2>All Auditoriums</h2>
+      <table id="auditoriumTable">
+        <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Capacity</th>
+          <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!-- Data will be dynamically added here -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+
+</section>
+
+
+
+
+<!-- partners -->
+<section class="section">
+  <div class="container">
+    <div class="row">
+      <!-- section title -->
+      <div class="col-12">
+        <h2 class="section__title section__title--no-margin">Our Partners</h2>
+      </div>
+      <!-- end section title -->
+
+      <!-- section text -->
+      <div class="col-12">
+        <p class="section__text section__text--last-with-margin">It is a long <b>established</b> fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using.</p>
+      </div>
+      <!-- end section text -->
+
+      <!-- partner -->
+      <div class="col-6 col-sm-4 col-md-3 col-lg-2">
+        <a href="#" class="partner">
+          <img src="img/partners/themeforest-light-background.png" alt="" class="partner__img">
+        </a>
+      </div>
+      <!-- end partner -->
+
+      <!-- partner -->
+      <div class="col-6 col-sm-4 col-md-3 col-lg-2">
+        <a href="#" class="partner">
+          <img src="img/partners/audiojungle-light-background.png" alt="" class="partner__img">
+        </a>
+      </div>
+      <!-- end partner -->
+
+      <!-- partner -->
+      <div class="col-6 col-sm-4 col-md-3 col-lg-2">
+        <a href="#" class="partner">
+          <img src="img/partners/codecanyon-light-background.png" alt="" class="partner__img">
+        </a>
+      </div>
+      <!-- end partner -->
+
+      <!-- partner -->
+      <div class="col-6 col-sm-4 col-md-3 col-lg-2">
+        <a href="#" class="partner">
+          <img src="img/partners/photodune-light-background.png" alt="" class="partner__img">
+        </a>
+      </div>
+      <!-- end partner -->
+
+      <!-- partner -->
+      <div class="col-6 col-sm-4 col-md-3 col-lg-2">
+        <a href="#" class="partner">
+          <img src="img/partners/activeden-light-background.png" alt="" class="partner__img">
+        </a>
+      </div>
+      <!-- end partner -->
+
+      <!-- partner -->
+      <div class="col-6 col-sm-4 col-md-3 col-lg-2">
+        <a href="#" class="partner">
+          <img src="img/partners/3docean-light-background.png" alt="" class="partner__img">
+        </a>
+      </div>
+      <!-- end partner -->
+    </div>
+  </div>
+</section>
+<!-- end partners -->
+
+<!-- footer -->
+<footer class="footer">
+  <div class="container">
+    <div class="row">
+      <!-- footer list -->
+      <div class="col-12 col-md-3">
+        <h6 class="footer__title">Download Our App</h6>
+        <ul class="footer__app">
+          <li><a href="#"><img src="img/Download_on_the_App_Store_Badge.svg" alt=""></a></li>
+          <li><a href="#"><img src="img/google-play-badge.png" alt=""></a></li>
+        </ul>
+      </div>
+      <!-- end footer list -->
+
+      <!-- footer list -->
+      <div class="col-6 col-sm-4 col-md-3">
+        <h6 class="footer__title">Resources</h6>
+        <ul class="footer__list">
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Pricing Plan</a></li>
+          <li><a href="#">Help</a></li>
+        </ul>
+      </div>
+      <!-- end footer list -->
+
+      <!-- footer list -->
+      <div class="col-6 col-sm-4 col-md-3">
+        <h6 class="footer__title">Legal</h6>
+        <ul class="footer__list">
+          <li><a href="#">Terms of Use</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Security</a></li>
+        </ul>
+      </div>
+      <!-- end footer list -->
+
+      <!-- footer list -->
+      <div class="col-12 col-sm-4 col-md-3">
+        <h6 class="footer__title">Contact</h6>
+        <ul class="footer__list">
+          <li><a href="tel:+18002345678">+1 (800) 234-5678</a></li>
+          <li><a href="mailto:support@moviego.com">support@flixgo.com</a></li>
+        </ul>
+        <ul class="footer__social">
+          <li class="facebook"><a href="#"><i class="icon ion-logo-facebook"></i></a></li>
+          <li class="instagram"><a href="#"><i class="icon ion-logo-instagram"></i></a></li>
+          <li class="twitter"><a href="#"><i class="icon ion-logo-twitter"></i></a></li>
+          <li class="vk"><a href="#"><i class="icon ion-logo-vk"></i></a></li>
+        </ul>
+      </div>
+      <!-- end footer list -->
+
+      <!-- footer copyright -->
+      <div class="col-12">
+        <div class="footer__copyright">
+          <small><a target="_blank" href="https://www.templateshub.net">Templates Hub</a></small>
+
+          <ul>
+            <li><a href="#">Terms of Use</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+          </ul>
+        </div>
+      </div>
+      <!-- end footer copyright -->
+    </div>
+  </div>
+</footer>
+<!-- end footer -->
+
+<script>
+  // API endpoints
+  const API_BASE_URL = "/auditoriums";
+
+  // DOM elements
+  const createForm = document.getElementById("createAuditoriumForm");
+  const auditoriumTable = document.getElementById("auditoriumTable").querySelector("tbody");
+
+  // Load all auditoriums
+  async function loadAuditoriums() {
+      const response = await fetch(API_BASE_URL);
+      const auditoriums = await response.json();
+
+      auditoriumTable.innerHTML = ""; // Clear table
+      auditoriums.forEach(auditorium => {
+          const row = `
+              <tr>
+                  <td>${auditorium.id}</td>
+                  <td>${auditorium.name}</td>
+                  <td>${auditorium.capacity}</td>
+                  <td>
+                      <button class="delete" onclick="deleteAuditorium(${auditorium.id})">Delete</button>
+                  </td>
+              </tr>
+          `;
+          auditoriumTable.innerHTML += row;
+      });
+  }
+
+  // Create new auditorium
+  createForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const formData = new FormData(createForm);
+      const auditorium = {
+          name: formData.get("name"),
+          capacity: Number(formData.get("capacity"))
+      };
+
+      const response = await fetch(`${API_BASE_URL}/create`, {
+          method: "POST",
+          headers: {
+              "Content-Type": "application/json"
+          },
+          body: JSON.stringify(auditorium)
+      });
+
+      if (response.ok) {
+          alert("Auditorium created successfully!");
+          createForm.reset();
+          loadAuditoriums();
+      } else {
+          alert("Failed to create auditorium.");
+      }
+  });
+
+  // Delete auditorium
+  async function deleteAuditorium(id) {
+      if (!confirm("Are you sure you want to delete this auditorium?")) return;
+
+      const response = await fetch(`${API_BASE_URL}/${id}`, { method: "DELETE" });
+
+      if (response.ok) {
+          alert("Auditorium deleted successfully!");
+          loadAuditoriums();
+      } else {
+          alert("Failed to delete auditorium.");
+      }
+  }
+
+  // Initial load
+  loadAuditoriums();
+</script>
+
+<!-- JS -->
+<script src="js/jquery-3.3.1.min.js"></script>
+<script src="js/bootstrap.bundle.min.js"></script>
+<script src="js/owl.carousel.min.js"></script>
+<script src="js/jquery.mousewheel.min.js"></script>
+<script src="js/jquery.mCustomScrollbar.min.js"></script>
+<script src="js/wNumb.js"></script>
+<script src="js/nouislider.min.js"></script>
+<script src="js/plyr.min.js"></script>
+<script src="js/jquery.morelines.min.js"></script>
+<script src="js/photoswipe.min.js"></script>
+<script src="js/photoswipe-ui-default.min.js"></script>
+<script src="js/main.js"></script>
+</body>
+
+</html>
